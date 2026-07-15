@@ -1,0 +1,35 @@
+# SPDX-License-Identifier: Apache-2.0
+
+# Overlay for zephyr/samples/net/openthread/shell.
+# Pair with boards/xg24_rb4186c.overlay when enabling shell UART DMA on xG24.
+
+# Match the requested OpenThread log behavior.
+CONFIG_OPENTHREAD_LOG_LEVEL_NOTE=y
+CONFIG_OPENTHREAD_LOG_LEVEL_DYNAMIC=y
+CONFIG_OPENTHREAD_LOG_PREPEND_LEVEL_ENABLE=y
+
+# Enable the requested OpenThread feature set.
+CONFIG_OPENTHREAD_DIAG=y
+CONFIG_OPENTHREAD_COAP=y
+CONFIG_OPENTHREAD_COAP_OBSERVE=y
+CONFIG_OPENTHREAD_COAPS=y
+CONFIG_OPENTHREAD_COMMISSIONER=y
+CONFIG_OPENTHREAD_JOINER=y
+CONFIG_OPENTHREAD_MAC_FILTER=y
+CONFIG_OPENTHREAD_TCP_ENABLE=y
+CONFIG_OPENTHREAD_CLI_TCP_ENABLE=y
+
+# Use the shell UART async backend so the Silabs USART driver can exercise its
+# LDMA-backed path when the board DTS overlay enables DMA for usart0.
+CONFIG_UART_ASYNC_API=y
+CONFIG_SHELL_ASYNC_API=y
+CONFIG_SHELL_BACKEND_SERIAL_API_ASYNC=y
+CONFIG_SHELL_BACKEND_SERIAL_ASYNC_RX_BUFFER_COUNT=4
+CONFIG_SHELL_BACKEND_SERIAL_ASYNC_RX_BUFFER_SIZE=64
+
+# Commissioner/Joiner and secure CoAP need more TLS heap than the sample default.
+CONFIG_MBEDTLS_HEAP_SIZE=12288
+
+# Fall back to raw OpenThread defines for options that do not have a clean
+# first-class Zephyr Kconfig knob in this tree.
+CONFIG_OPENTHREAD_CUSTOM_PARAMETERS="OPENTHREAD_CONFIG_LOG_OUTPUT=OPENTHREAD_CONFIG_LOG_OUTPUT_APP OPENTHREAD_CONFIG_TLS_ENABLE=1"

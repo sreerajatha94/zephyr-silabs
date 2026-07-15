@@ -1,0 +1,17 @@
+#include <zephyr/dt-bindings/dma/silabs/xg24-dma.h>
+
+/*
+ * Enable LDMA for the shell UART on xg24_rb4186c.
+ * This is intended for use with zephyr/samples/net/openthread/shell plus the
+ * companion prj-utf-smoke.conf overlay in this directory.
+ */
+
+&dma0 {
+	status = "okay";
+};
+
+&usart0 {
+	dmas = <&dma0 DMA_REQSEL_USART0RXDATAV>,
+	       <&dma0 DMA_REQSEL_USART0TXBL>;
+	dma-names = "rx", "tx";
+};
