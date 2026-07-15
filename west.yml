@@ -21,6 +21,8 @@ manifest:
       url-base: https://github.com/zephyrproject-rtos
     - name: silabs
       url-base: https://github.com/siliconlabssoftware
+    - name: silabs-internal
+      url-base: git@github.com:SiliconLabsInternal
 
   projects:
     - name: zephyr
@@ -40,7 +42,6 @@ manifest:
           - lvgl
           - mbedtls
           - mldsa-native
-          - openthread
           - picolibc
           - segger
           - zcbor
@@ -53,6 +54,10 @@ manifest:
       repo-path: zephyr-mcuboot
       revision: 40fbecd086a72f479fcfdce1172cbab9db87f4cd
       path: bootloader/mcuboot
+    - name: openthread
+      remote: silabs-internal
+      revision: b5d1a88c03599d87d26dbdda242e4690cd1c4b07
+      path: modules/openthread
     - name: tf-psa-crypto
       remote: silabs
       repo-path: zephyr-tf-psa-crypto
