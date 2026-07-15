@@ -21,11 +21,13 @@ manifest:
       url-base: https://github.com/zephyrproject-rtos
     - name: silabs
       url-base: https://github.com/siliconlabssoftware
+    - name: sreerajatha94
+      url-base: https://github.com/sreerajatha94
 
   projects:
     - name: zephyr
-      remote: silabs
-      revision: 6a98936509236e1144f475c52417afa913d8c8ca
+      remote: sreerajatha94
+      revision: 671874d1d25dbf7e440dcce0d1652b101355ec64
       import:
         # Simplicity SDK for Zephyr imports the Zephyr main tree at the
         # revision given above. Only the modules named below are imported.
