@@ -1,0 +1,27 @@
+choice OPENTHREAD_IMPLEMENTATION
+
+config OPENTHREAD_SILABS_LIBRARY
+	bool "Silicon Labs certified OpenThread library"
+	depends on SOC_SERIES_EFR32MG21 || SOC_SERIES_EFR32MG24 || SOC_SERIES_EFR32MG26
+	depends on !OPENTHREAD_COPROCESSOR
+	depends on "$(ZEPHYR_TOOLCHAIN_VARIANT)" = "gnuarmemb" || "$(ZEPHYR_TOOLCHAIN_VARIANT)" = "zephyr"
+	select OPENTHREAD_DHCP6_CLIENT
+	select OPENTHREAD_DNS_CLIENT_OVER_TCP
+	select OPENTHREAD_ECDSA
+	select OPENTHREAD_ENABLE_SERVICE
+	select OPENTHREAD_NETDIAG_VENDOR_INFO
+	select OPENTHREAD_TCP_ENABLE
+	select PSA_WANT_ECC_SECP_R1_256
+	help
+	  Link against the Silicon Labs certified OpenThread static library
+	  fetched through the hal_silabs blob manifest instead of building
+	  OpenThread from sources.
+
+	  The library enforces its required boolean OpenThread feature set here.
+	  Role-dependent and value-based profile settings are supplied through the
+	  accompanying module defconfig so the build can continue to use Zephyr's
+	  OpenThread core config translator.
+
+endchoice
+
+rsource "Kconfig.defconfig"

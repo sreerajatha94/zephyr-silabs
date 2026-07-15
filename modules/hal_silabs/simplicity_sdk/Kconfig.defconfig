@@ -1,0 +1,32 @@
+if OPENTHREAD && OPENTHREAD_SILABS_LIBRARY
+
+configdefault OPENTHREAD_CLI_TCP_ENABLE
+	default n
+
+configdefault OPENTHREAD_CSL_RECEIVE_TIME_AHEAD
+	default 750
+
+configdefault OPENTHREAD_PLATFORM_CSL_UNCERT
+	default 200
+
+configdefault OPENTHREAD_IP6_MAX_EXT_UCAST_ADDRS
+	default 4
+
+configdefault OPENTHREAD_LINK_METRICS_SUBJECT
+	default y if OPENTHREAD_FTD
+	default n if OPENTHREAD_MTD
+
+configdefault OPENTHREAD_CSL_RECEIVER
+	default y if OPENTHREAD_MTD
+	default n if OPENTHREAD_FTD
+
+configdefault OPENTHREAD_NET_DIAG_VENDOR_NAME
+	default "Silicon Labs"
+
+configdefault OPENTHREAD_NET_DIAG_VENDOR_MODEL
+	default "OpenThread"
+
+configdefault OPENTHREAD_NET_DIAG_VENDOR_SW_VERSION
+	default "3.2.0.0"
+
+endif

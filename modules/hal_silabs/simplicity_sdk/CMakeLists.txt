@@ -3,6 +3,7 @@
 
 set(SECURITY_DIR ${ZEPHYR_HAL_SILABS_MODULE_DIR}/simplicity_sdk/platform/security)
 set(LIBCRYPTOSOC_DIR ${ZEPHYR_HAL_SILABS_EXTRA_MODULE_DIR}/simplicity_sdk/util/third_party/crypto_ip/libcryptosoc)
+set(BLOBS_DIR ${ZEPHYR_HAL_SILABS_MODULE_DIR}/zephyr/blobs/simplicity_sdk)
 
 # Get SoC series number, i.e. translate efr32bg22 -> 22, mgm240p -> 24, simg301 -> 301
 if(CONFIG_SOC_SERIES MATCHES "^ef[rm]32")
@@ -14,6 +15,16 @@ elseif(CONFIG_SOC_SERIES MATCHES "^.gm")
 else()
   message(FATAL_ERROR "unknown part")
 endif()
+
+function(add_hal_silabs_prebuilt_library lib_name prebuilt_path)
+  if(NOT CONFIG_BUILD_ONLY_NO_BLOBS)
+    add_library(${lib_name} STATIC IMPORTED GLOBAL)
+    set_target_properties(${lib_name} PROPERTIES
+      IMPORTED_LOCATION ${BLOBS_DIR}/${prebuilt_path}
+    )
+    zephyr_link_libraries(${lib_name})
+  endif()
+endfunction()
 
 zephyr_include_directories(
   inc
@@ -29,6 +40,8 @@ if(CONFIG_SOC_FAMILY_SILABS_S2 AND NOT (SILABS_DEVICE_FAMILY_NUMBER IN_LIST vse_
     SL_SE_MANAGER_YIELD_WHILE_WAITING_FOR_COMMAND_COMPLETION
   )
 endif()
+
+add_subdirectory_ifdef(CONFIG_OPENTHREAD_SILABS_LIBRARY protocol/openthread)
 
 # PSA Crypto
 if(CONFIG_PSA_CRYPTO_DRIVER_SILABS_HSE OR CONFIG_PSA_CRYPTO_DRIVER_SILABS_VSE OR CONFIG_PSA_CRYPTO_DRIVER_SILABS_SIWX91X)
