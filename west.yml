@@ -21,6 +21,8 @@ manifest:
       url-base: https://github.com/zephyrproject-rtos
     - name: silabs
       url-base: https://github.com/siliconlabssoftware
+    - name: sreerajatha94
+      url-base: https://github.com/sreerajatha94
 
   projects:
     - name: zephyr
@@ -45,8 +47,8 @@ manifest:
           - segger
           - zcbor
     - name: hal_silabs
-      remote: silabs
-      revision: 80751f9d28b9f96b154fd70f36d562ff3f10dd40
+      remote: sreerajatha94
+      revision: 0795b15f8a5983bfe7e2894ce7c49adefbe744ef
       path: modules/hal/silabs
     - name: mcuboot
       remote: silabs
